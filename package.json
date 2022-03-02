@@ -1,0 +1,25 @@
+{
+  "name": "empdata_server",
+  "version": "1.0.0",
+  "description": "employee database",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "serve": "nodemon index.js"
+  },
+  "keywords": [
+    "employee",
+    "database",
+    "nodejs",
+    "expressjs"
+  ],
+  "author": "Sridhar Rajaram",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongodb": "^4.4.0",
+    "nodemon": "^2.0.15"
+  }
+}
