@@ -16,10 +16,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//get method to welcome
 app.get("/", (req, res) => {
   res.send("Welcome to employee database");
 });
 
+//get all employees data
 app.get("/employees", async function (req, res) {
   // mongodb Database concept introduced
   try {
@@ -44,13 +46,10 @@ app.get("/employees", async function (req, res) {
   }
 });
 
+//search employee record with date
 app.post("/employees/searchDate", async function (req, res) {
   const startDate = req.body.startDate;
   const endDate = req.body.endDate;
-
-  console.log(startDate);
-  console.log(endDate);
-  console.log(req.body);
 
   // mongodb Database concept introduced
   try {
@@ -70,7 +69,7 @@ app.post("/employees/searchDate", async function (req, res) {
 
     //close the database
     await client.close();
-    console.log(data);
+
     res.json({ data, message: "search succesful" }); //reply with data
   } catch (error) {
     console.log(error);
@@ -80,6 +79,7 @@ app.post("/employees/searchDate", async function (req, res) {
   }
 });
 
+//create employee record
 app.post("/create-employee", async function (req, res) {
   // mongodb Database concept introduced
   try {
@@ -106,6 +106,7 @@ app.post("/create-employee", async function (req, res) {
   }
 });
 
+//get all department data
 app.get("/departments", async function (req, res) {
   // mongodb Database concept introduced
   try {
@@ -130,6 +131,7 @@ app.get("/departments", async function (req, res) {
   }
 });
 
+//creating department data
 app.post("/create-department", async function (req, res) {
   // mongodb Database concept introduced
   try {
