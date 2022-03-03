@@ -44,6 +44,42 @@ app.get("/employees", async function (req, res) {
   }
 });
 
+app.post("/employees/searchDate", async function (req, res) {
+  const startDate = req.body.startDate;
+  const endDate = req.body.endDate;
+
+  console.log(startDate);
+  console.log(endDate);
+  console.log(req.body);
+
+  // mongodb Database concept introduced
+  try {
+    //connect the database
+    let client = await mongoClient.connect(DB_URL); //since it is returning the promise, we are puting in try catch async
+
+    //select the db
+    let db = client.db("employeeData");
+
+    //select the collection and perform the action
+    let data = await db
+      .collection("employees")
+      .find({
+        joiningDate: { $gte: startDate, $lte: endDate },
+      })
+      .toArray(); //returning the promise we put await, cursor pointer, so toArray
+
+    //close the database
+    await client.close();
+    console.log(data);
+    res.json({ data, message: "search succesful" }); //reply with data
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "something went wrong",
+    });
+  }
+});
+
 app.post("/create-employee", async function (req, res) {
   // mongodb Database concept introduced
   try {
